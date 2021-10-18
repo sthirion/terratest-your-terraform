@@ -4,9 +4,12 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 terraform {
+
   required_version = ">= 0.12.29"
+  
   backend "local" {
   }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
