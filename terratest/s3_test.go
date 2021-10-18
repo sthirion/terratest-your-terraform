@@ -31,8 +31,6 @@ func TestTerraformAwsS3(t *testing.T) {
 	}
 	aws.SetAwsEndpointsOverrides(LocalEndpoints)
 
-	// Construct the terraform options with default retryable errors to handle the most common retryable errors in
-	// terraform testing.
 	terraformOptions := &terraform.Options{
 		// The path to where our Terraform code is located
 		TerraformDir: "../terraform",
@@ -59,6 +57,8 @@ func TestTerraformAwsS3(t *testing.T) {
 	// Run `terraform output` to get the value of an output variable
 	bucketID := terraform.Output(t, terraformOptions, "bucket_id")
 	bucketID = strings.Trim(bucketID, "\"") // https://github.com/hashicorp/terraform-k8s/issues/40
+
+	//Verify the bucket was created with the expected bucket name
 	assert.Equal(t, expectedName, bucketID)
 
 	// Verify that our Bucket has versioning enabled
